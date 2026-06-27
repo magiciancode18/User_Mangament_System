@@ -34,16 +34,20 @@ namespace UserManagment.Controller
         [HttpPost("login")]
         public IActionResult Login(LoginDto dto)
         {
-            var result = us.Login(dto);
+            var user = us.Login(dto);
 
-            if (result == "User not found" || result == "Invalid password")
+            if (user == null)
             {
-                return Unauthorized(result);
+                return Unauthorized();
             }
 
-            return Ok(result);
+            return Ok(new
+            {
+                email = user.Email,
+                userName = user.UserName,
+                role = user.Role
+            });
         }
-
 
     }
 }

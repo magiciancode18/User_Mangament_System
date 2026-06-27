@@ -15,25 +15,23 @@ namespace UserManagment.Service
         IUserRepository ur;
         public UserService(IUserRepository _ur)
         {
-            ur =_ur;
+            ur = _ur;
         }
-        string IUserService.Login(LoginDto dto)
+
+        User? IUserService.Login(LoginDto dto)
         {
             var user = ur.GetuserbyEmail(dto.Email);
 
             if (user == null)
-            {
-                return "User not found";
-            }
+                return null;
 
-            // Check password
             if (user.Password != dto.Password)
-            {
-                return "Invalid password";
-            }
+                return null;
 
-            return "Login successful";
+            return user;
+
         }
+
 
         string IUserService.Register(RegisterDto dto)
         {
@@ -44,18 +42,27 @@ namespace UserManagment.Service
                 return "User already exists";
             }
 
-           
+            if (dto.Role != "Admin" && dto.Role != "User")
+            {
+                return "Invalid Role";
+            }
+
             var user = new User
             {
                 UserName = dto.UserName,
                 Email = dto.Email,
-                Password = dto.Password
+                Password = dto.Password,
+                Role = dto.Role
             };
 
             ur.AddUser(user);
 
-            return "User registered successfully";
+            if (dto.Role == "Admin")
+            {
+                return "Admin registered successfully";
+            }
 
+            return "User registered successfully";
         }
     }
 }

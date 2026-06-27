@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace UserManagment.DTOs
 {
-    public class RegisterDto
+    public class EmployeeDto
     {
+        public int Id { get; set; }
+
         [Required]
-        public string? UserName { get; set; }
+        public string? EmployeeName { get; set; }
 
         [Required]
         [EmailAddress]
         public string? Email { get; set; }
 
         [Required]
-        public string? Password { get; set; }
+        public string? PhoneNumber { get; set; }
 
-        [Required]
-        [RegularExpression("Admin|User",
- ErrorMessage = "Role must be Admin or User")]
-        public string? Role { get; set; }
+        [Range(1, double.MaxValue)]
+        public decimal Salary { get; set; }
     }
 }

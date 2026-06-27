@@ -8,7 +8,7 @@ namespace UserManagment.Repository
 {
     public interface IUserRepository
     {
-        User GetuserbyEmail(string email);
+        User? GetuserbyEmail(string email);
        int AddUser(User u);
     }
 }

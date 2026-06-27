@@ -11,8 +11,8 @@ using UserManagment.Data;
 namespace UserManagment.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260317143203_Phase1")]
-    partial class Phase1
+    [Migration("20260622145246_phase")]
+    partial class phase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,31 @@ namespace UserManagment.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("UserManagment.Model.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("employees");
+                });
 
             modelBuilder.Entity("UserManagment.Model.User", b =>
                 {
@@ -38,6 +63,9 @@ namespace UserManagment.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -51,7 +79,8 @@ namespace UserManagment.Migrations
                             UserId = 1,
                             Email = "shiv@gmail.com",
                             Password = "admin@321",
-                            UserName = "Shivam kumar"
+                            Role = "Admin",
+                            UserName = "Shivam Kumar"
                         });
                 });
 #pragma warning restore 612, 618

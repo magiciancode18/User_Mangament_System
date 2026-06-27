@@ -7,20 +7,28 @@ using UserManagment.Model;
 
 namespace UserManagment.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions d):base (d)
+        public AppDbContext(DbContextOptions d) : base(d)
         {
-            
+
         }
 
-        public DbSet<User> users{get; set;}
+        public DbSet<User> users { get; set; }
+        public DbSet<Employee> employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
-                new User{UserId= 1, UserName="Shivam kumar", Email="shiv@gmail.com", Password="admin@321"}
-            );
+             new User
+             {
+                 UserId = 1,
+                 UserName = "Shivam Kumar",
+                 Email = "shiv@gmail.com",
+                 Password = "admin@321",
+                 Role = "Admin"
+             }
+          );
         }
     }
 }

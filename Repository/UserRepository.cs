@@ -21,7 +21,7 @@ namespace UserManagment.Repository
             return item;
         }
 
-        User IUserRepository.GetuserbyEmail(string email)
+        User? IUserRepository.GetuserbyEmail(string email)
         {
             var result = appDb.users.FirstOrDefault(t=>t.Email==email);
             return result;
